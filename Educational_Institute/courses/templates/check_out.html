@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+Login Page
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container"> 
+<br>
+<br>
+
+<div class="row">
+    <div class="col mx-auto">
+        <div class="card mx-auto" style="width: 18rem;">
+            <img src="{{ course.thumbnail.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ course.name }}</h5>
+                <p class="card-text m-0 p-0"> {{ course.desc }} </p> 
+                <p class="price"> ₹ {{course.price}} </p>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div>
+            <p class="display-5" >  <b> {{course.name}} </b> </p>
+            <hr>
+            <p class="display-6"> Payable Amount : <b> ₹ {{course.price}} </b> </p>
+            <a class="btn btn-light border" href="?action=create_payment"> Continue to payment </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% if order is not None %}
+    
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+
+    var options = {
+        "key": "rzp_test_f3sbyfj8l6SgXW", // Enter the Key ID generated from the Dashboard
+        "name": "MyInstitute",
+        "description": "Payment for {{ course.name }}  cousre",
+        "image": "https://example.com/your_logo",
+        "order_id": "{{order.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "http://localhost:8000/verify_payment",
+        "prefill": {
+            "name": "{{user.first_name}}",
+            "email": "{{user.email}}",
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+</script>
+
+{% endif %}
+
+{% if error is not None %}
+
+<script>
+  window.onload = ()=> {
+      alert("{{error}}")
+
+    }
+</script>
+
+{% endif %}
+
+
+{% endblock %}

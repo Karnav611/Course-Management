@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+
+Home Page
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    .price { font-size: 20px; color: rgb(30, 34, 24); }
+
+</style>
+
+<div class="container">
+    <br>
+    <div class="row">
+
+        {% for course in courses %}
+        <div class="col mx-auto">
+            <div class="card mx-auto" style="width: 18rem;">
+                <img src="{{ course.thumbnail.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.name }}</h5>
+                    <p class="card-text m-0 p-0"> {{ course.desc }} </p> 
+                    <p class="price"> ₹ {{course.price}} </p>
+
+                </div>
+
+            <div class="card-footer p-0 border-0">
+                    <div class="row no-gutters p-1">
+                    <div class="col"> <a href="/checkout/{{course.slug}}" class="btn btn-light btn-block" >Enroll Now</a> </div>
+                    <div class="col"> <a href="/course/{{ course.slug }}" class="btn btn-light btn-block" > Show More </a> </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

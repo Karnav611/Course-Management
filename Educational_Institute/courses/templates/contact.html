@@ -1,0 +1,32 @@
+{% extends 'basic.html' %}
+
+{% block title %} Contact {% endblock %}
+{% block body %} 
+
+<div class="container my-3">
+<h3 style="color: rgb(46, 45, 45);"> Contact us </h3>
+
+<form action="/contact/" method="post">
+    
+  {% csrf_token %}
+
+<div class="mb-3" >
+    <label for="name" class="form-label" style="color:darkgreen "><b> Name </b></label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label" style="color:darkgreen"><b>Email</b></label>
+    <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+  </div>  
+
+  <div class="mb-3">
+    <label for="content" class="form-label" style="color:darkgreen"> <b>Describe your issue </b></label>
+    <textarea class="form-control" name="content" id="content" cols="70" rows="7"></textarea>
+  </div>  
+
+ 
+  <button type="submit" class="btn btn-primary"> Submit </button>
+</form>
+</div>
+{% endblock %}
